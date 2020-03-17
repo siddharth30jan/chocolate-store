@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { addProduct, remProduct } from "../redux/actions";
 
 const ProductTemplate = props => {
-  let ourProductInStore = props.cart.filter(
-    product1 => product1.id === props.product.id
-  );
+ 
   return (
     <div
       style={{
@@ -21,7 +19,7 @@ const ProductTemplate = props => {
           props.add(props.product);
         }}
       >
-        Add to Cart +{" "}
+        Add to Cart + {(props.magic && props.magic.quantity)||0}
       </button>
       <button
         onClick={() => {

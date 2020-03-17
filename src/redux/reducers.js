@@ -1,29 +1,31 @@
 import { ADD, REMOVE } from "./types";
 const cartReducer = (state = [], action) => {
-  console.log("state", state);
-  console.log("payload", action.payload);
   switch (action.type) {
     case ADD: {
-      let temp = state.indexOf(action.payload);
-
-      if (temp != -1) {
+      //Check if it is present
+      const curProduct = state.filter(
+        product => product.id === action.payload.id
+      )[0];
+      if (curProduct) {
+        ///Remove it
+        const filteredArray = state.filter(
+          product => product.id !== action.payload.id
+        );
         return [
-          ...state,
-          { ...action.payload, quantity: state[temp].quantity + 1 }
+          ...filteredArray,
+          { ...action.payload, quantity: curProduct.quantity + 1 }
         ];
-      } else return [...state, { ...action.payload, quantity: 1 }];
+      } else {
+        return [...state, { ...action.payload, quantity: 1 }];
+      }
     }
     case REMOVE: {
-      // alert("ASDF");
-      let temp = state;
-      for (let i = 0; i < temp.size; i++) {
-        if (temp[i] === action.payload) {
-          temp[i].quantity -= 1;
-          break;
-        }
+      const temp = state.filter(x => x.id === action.payload.id)[0];
+      if (temp) {
+        const p = state.filter(x => x.id !== action.payload.id);
+        if (temp.quantity == 1) return [...p];
+        else return [...p, { ...action.payload, quantity: temp.quantity - 1 }];
       }
-      console.log(temp);
-      return temp;
     }
     default:
       return state;

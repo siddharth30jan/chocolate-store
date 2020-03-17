@@ -39,9 +39,19 @@ const data = [
 const HomePage = props => {
   return (
     <div>
-      {props.cart.map(x=><h1>{x.name}</h1>)}
+      {props.cart.map(x => {
+        return (
+          <div>
+            <h1>{x.name}</h1>
+            <h2>{x.quantity}</h2>
+          </div>
+        );
+      })}
       {data.map(product => (
-        <ProductTemplate product={product} />
+        <ProductTemplate
+          product={product}
+          magic={props.cart.filter(x => x.id === product.id)[0]}
+        />
       ))}
     </div>
   );
