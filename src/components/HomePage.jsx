@@ -39,14 +39,14 @@ const data = [
 const HomePage = props => {
   return (
     <div>
-      {props.cart.map(x => {
+      {/* {props.cart.map(x => {
         return (
           <div>
             <h1>{x.name}</h1>
             <h2>{x.quantity}</h2>
           </div>
         );
-      })}
+      })}*/}
       {data.map(product => (
         <ProductTemplate
           product={product}

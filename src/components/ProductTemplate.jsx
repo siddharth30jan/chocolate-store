@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { addProduct, remProduct } from "../redux/actions";
 
 const ProductTemplate = props => {
- 
   return (
     <div
       style={{
@@ -19,15 +18,27 @@ const ProductTemplate = props => {
           props.add(props.product);
         }}
       >
-        Add to Cart + {(props.magic && props.magic.quantity)||0}
+        Add to Cart + {(props.magic && props.magic.quantity) || 0}
       </button>
-      <button
-        onClick={() => {
-          props.rem(props.product);
-        }}
-      >
-        Remove -{" "}
-      </button>
+
+      {/*props.magic && props.magic.quantity >= 1 ? (
+        <button
+          onClick={() => {
+            props.rem(props.product);
+          }}
+        >
+          Remove -{" "}
+        </button>
+      ) : null*/
+     ( props.magic && props.magic.quantity >= 1) && (
+        <button
+          onClick={() => {
+            props.rem(props.product);
+          }}
+        >
+          Remove -{" "}
+        </button>
+      )}
     </div>
   );
 };
