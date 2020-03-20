@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addProduct, remProduct } from "../redux/actions";
+import AddBtn from "./AddBtn";
+import RemBtn from "./RemBtn";
 
 const ProductTemplate = props => {
   return (
@@ -13,32 +15,13 @@ const ProductTemplate = props => {
       }}
     >
       <h1>{props.product.name}</h1>
-      <button
-        onClick={() => {
-          props.add(props.product);
-        }}
-      >
-        Add to Cart + {(props.magic && props.magic.quantity) || 0}
-      </button>
 
-      {/*props.magic && props.magic.quantity >= 1 ? (
-        <button
-          onClick={() => {
-            props.rem(props.product);
-          }}
-        >
-          Remove -{" "}
-        </button>
-      ) : null*/
-     ( props.magic && props.magic.quantity >= 1) && (
-        <button
-          onClick={() => {
-            props.rem(props.product);
-          }}
-        >
-          Remove -{" "}
-        </button>
-      )}
+      <AddBtn product={props.product} add={props.add} magic={props.magic} />
+
+      {(props.magic && props.magic.quantity >= 1 && (
+        <RemBtn rem={props.rem} product={props.product} />
+      )) ||
+        null}
     </div>
   );
 };

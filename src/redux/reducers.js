@@ -1,4 +1,4 @@
-import { ADD, REMOVE } from "./types";
+import { ADD, REMOVE, REMALL } from "./types";
 const cartReducer = (state = [], action) => {
   switch (action.type) {
     case ADD: {
@@ -26,6 +26,10 @@ const cartReducer = (state = [], action) => {
         if (temp.quantity == 1) return [...p];
         else return [...p, { ...action.payload, quantity: temp.quantity - 1 }];
       }
+    }
+    case REMALL: {
+      let x = state.filter(Y => action.payload.id !== Y.id);
+      return x;
     }
     default:
       return state;

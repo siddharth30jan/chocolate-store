@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductTemplate from "./ProductTemplate";
 import { connect } from "react-redux";
-
+/*
 const data = [
   {
     id: 1,
@@ -35,24 +35,28 @@ const data = [
     id: 8,
     name: "vanilla js XD"
   }
-];
+];*/
 const HomePage = props => {
+  const [data, setData] = useState();
+  useEffect(() => {
+    fetch(
+      `https://us-central1-react-redux-firebase-3dc25.cloudfunctions.net/api/data`
+    )
+      .then(res => res.json())
+      .then(data => {
+        // console.log(data);
+        setData(data);
+      });
+  }, []);
   return (
     <div>
-      {/* {props.cart.map(x => {
-        return (
-          <div>
-            <h1>{x.name}</h1>
-            <h2>{x.quantity}</h2>
-          </div>
-        );
-      })}*/}
-      {data.map(product => (
-        <ProductTemplate
-          product={product}
-          magic={props.cart.filter(x => x.id === product.id)[0]}
-        />
-      ))}
+      {data &&
+        data.map(product => (
+          <ProductTemplate
+            product={product}
+            magic={props.cart.filter(x => x.id === product.id)[0]}
+          />
+        ))}
     </div>
   );
 };
